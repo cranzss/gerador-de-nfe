@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "geradordenf", "geradordenf.csproj", "{CDEE8869-834D-4506-93F6-788561C7D353}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		gerador de nf|Any CPU = gerador de nf|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDEE8869-834D-4506-93F6-788561C7D353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDEE8869-834D-4506-93F6-788561C7D353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDEE8869-834D-4506-93F6-788561C7D353}.gerador de nf|Any CPU.ActiveCfg = gerador de nf|Any CPU
+		{CDEE8869-834D-4506-93F6-788561C7D353}.gerador de nf|Any CPU.Build.0 = gerador de nf|Any CPU
+		{CDEE8869-834D-4506-93F6-788561C7D353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDEE8869-834D-4506-93F6-788561C7D353}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3038B2A-591B-459C-9602-7BB53ADC6A04}
+	EndGlobalSection
+EndGlobal
