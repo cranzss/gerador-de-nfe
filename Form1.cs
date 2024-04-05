@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace geradordenf
@@ -14,52 +15,9 @@ namespace geradordenf
         {
 
         }
-        string GerarCNPJ()
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            // Gerar 8 números aleatórios de 0 a 9 e 4 números (0001), e depois calcular eles
-            // Colocar eles na maskedTextBox
 
-            Random rnd = new Random();
-            int n1 = rnd.Next(0, 10);
-            int n2 = rnd.Next(0, 10);
-            int n3 = rnd.Next(0, 10);
-            int n4 = rnd.Next(0, 10);
-            int n5 = rnd.Next(0, 10);
-            int n6 = rnd.Next(0, 10);
-            int n7 = rnd.Next(0, 10);
-            int n8 = rnd.Next(0, 10);
-            int n9 = 0;
-            int n10 = 0;
-            int n11 = 0;
-            int n12 = 1;
-
-            int Soma1 = n1 * 5 + n2 * 4 + n3 * 3 + n4 * 2 + n5 * 9 + n6 * 8 + n7 * 7 + n8 * 6 + n9 * 5 + n10 * 4 + n11 * 3 + n12 * 2;
-
-            int DV1 = Soma1 % 11;
-
-            if (DV1 < 2)
-            {
-                DV1 = 0;
-            }
-            else
-            {
-                DV1 = 11 - DV1;
-            }
-
-            int Soma2 = n1 * 6 + n2 * 5 + n3 * 4 + n4 * 3 + n5 * 2 + n6 * 9 + n7 * 8 + n8 * 7 + n9 * 6 + n10 * 5 + n11 * 4 + n12 * 3 + DV1 * 2;
-
-            int DV2 = Soma2 % 11;
-
-            if (DV2 < 2)
-            {
-                DV2 = 0;
-            }
-            else
-            {
-                DV2 = 11 - DV2;
-            }
-
-            return n1.ToString() + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9 + n10 + n11 + n12 + DV1 + DV2;
         }
         static string SerieNF(Random rnd, int minLength)
         {
@@ -138,11 +96,67 @@ namespace geradordenf
             return uf;
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string GerarCNPJ()
+            {
+                // Gerar 8 números aleatórios de 0 a 9 e 4 números (0001), e depois calcular eles
+                // Colocar eles na maskedTextBox
+
+                Random rnd = new Random();
+                int n1 = rnd.Next(0, 10);
+                int n2 = rnd.Next(0, 10);
+                int n3 = rnd.Next(0, 10);
+                int n4 = rnd.Next(0, 10);
+                int n5 = rnd.Next(0, 10);
+                int n6 = rnd.Next(0, 10);
+                int n7 = rnd.Next(0, 10);
+                int n8 = rnd.Next(0, 10);
+                int n9 = 0;
+                int n10 = 0;
+                int n11 = 0;
+                int n12 = 1;
+
+                int Soma1 = n1 * 5 + n2 * 4 + n3 * 3 + n4 * 2 + n5 * 9 + n6 * 8 + n7 * 7 + n8 * 6 + n9 * 5 + n10 * 4 + n11 * 3 + n12 * 2;
+
+                int DV1 = Soma1 % 11;
+
+                if (DV1 < 2)
+                {
+                    DV1 = 0;
+                }
+                else
+                {
+                    DV1 = 11 - DV1;
+                }
+
+                int Soma2 = n1 * 6 + n2 * 5 + n3 * 4 + n4 * 3 + n5 * 2 + n6 * 9 + n7 * 8 + n8 * 7 + n9 * 6 + n10 * 5 + n11 * 4 + n12 * 3 + DV1 * 2;
+
+                int DV2 = Soma2 % 11;
+
+                if (DV2 < 2)
+                {
+                    DV2 = 0;
+                }
+                else
+                {
+                    DV2 = 11 - DV2;
+                }
+
+                return n1.ToString() + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9 + n10 + n11 + n12 + DV1 + DV2;
+            }
+
+            textBox2.Text = GerarCNPJ();
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             
         }
-
+        private void textBox2_TextChanged_1(object sender, EventArgs e)
+        {
+            textBox2.MaxLength = 14;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             //mês e ano da nota
@@ -154,9 +168,22 @@ namespace geradordenf
                 return;
             }
 
+            string cnpj = textBox2.Text;
+
+
+            if (cnpj.Length == 0)
+            {
+                MessageBox.Show("Por favor insira o documento do emissor");
+                return;
+            }
+            else if (cnpj.Length != 14) 
+            {
+                MessageBox.Show("Por favor insira um documento válido");
+                return;
+            }
+
             string uf = comboBox1.SelectedItem.ToString();
             string ufcod = CodUF(uf);
-            //string coduf = ObterCodigoUF(uf);
 
             //modelo da nota (55 para NF-e)
             int mod = 55;
@@ -175,7 +202,7 @@ namespace geradordenf
             string cod = CodNF(rand, 8);
 
             //chave nf com 43 digitos
-            string chave = ufcod + Data + GerarCNPJ() + mode + ser + num + "1" + cod;
+            string chave = ufcod + Data + cnpj + mode + ser + num + "1" + cod;
 
             // cálculo do dígito verificador da NF
             int peso = 2;
@@ -199,15 +226,31 @@ namespace geradordenf
             string digit = digitoVerificador.ToString();
 
             string chavenfe = chave + digit;
-            int tamanhochave = chavenfe.Length;
 
-            Console.WriteLine(ser +" "+ num + " " + cod + " tamanho chave:" + tamanhochave);
             textBox1.Text = chavenfe;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+      
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar))
+            { 
+                e.Handled = true;
+            }
         }
 
         
