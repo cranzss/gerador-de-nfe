@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace geradordenf
@@ -151,7 +150,7 @@ namespace geradordenf
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
         private void textBox2_TextChanged_1(object sender, EventArgs e)
         {
@@ -176,7 +175,7 @@ namespace geradordenf
                 MessageBox.Show("Por favor insira o documento do emissor");
                 return;
             }
-            else if (cnpj.Length != 14) 
+            else if (cnpj.Length != 14)
             {
                 MessageBox.Show("Por favor insira um documento válido");
                 return;
@@ -242,17 +241,17 @@ namespace geradordenf
 
         private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
-      
+
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar))
-            { 
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
                 e.Handled = true;
             }
         }
 
-        
+
     }
 }
