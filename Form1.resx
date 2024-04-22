@@ -327,7 +327,7 @@
     <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 75</value>
+    <value>16, 84</value>
   </data>
   <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>292, 29</value>
@@ -348,7 +348,7 @@
     <value>1</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 78</value>
+    <value>316, 87</value>
   </data>
   <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
