@@ -227,6 +227,8 @@ namespace geradordenf
             string chavenfe = chave + digit;
 
             textBox1.Text = chavenfe;
+            textBox3.Text = num;
+            textBox4.Text = ser;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -252,6 +254,24 @@ namespace geradordenf
             }
         }
 
+        private void label3_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
