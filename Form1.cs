@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace geradordenf
@@ -272,6 +273,13 @@ namespace geradordenf
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            pictureBox1.BorderStyle = BorderStyle.None;
+            string url = "https://github.com/cranzss";
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
         }
     }
 }
