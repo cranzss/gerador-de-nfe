@@ -32,18 +32,14 @@ namespace geradordenf
 
             return new string(result);
         }
-        static string NumeroNF(Random rand, int minLength)
+        static int NumeroNF()
         {
-            const string chars = "0123456789";
-            char[] result = new char[minLength];
+            Random rand = new Random();
 
-            // Gere caracteres aleatórios até alcançar o tamanho mínimo especificado
-            for (int i = 0; i < minLength; i++)
-            {
-                result[i] = chars[rand.Next(chars.Length)];
-            }
+            // Gerar um número aleatório com 9 dígitos
+            int numeroAleatorio = rand.Next(100000000, 1000000000);
 
-            return new string(result);
+            return numeroAleatorio;
         }
 
         static string CodNF(Random rando, int minLength)
@@ -194,12 +190,12 @@ namespace geradordenf
             string ser = SerieNF(rnd, 3);
 
             //número da nf
-            Random rand = new Random(DateTime.Now.Millisecond);
-            string num = NumeroNF(rand, 9);
+            //Random rand = new Random(DateTime.Now.Millisecond);
+            string num = NumeroNF().ToString();
 
             //código numérico da nf
             Random rando = new Random(DateTime.Now.Millisecond);
-            string cod = CodNF(rand, 8);
+            string cod = CodNF(rando, 8);
 
             //chave nf com 43 digitos
             string chave = ufcod + Data + cnpj + mode + ser + num + "1" + cod;
