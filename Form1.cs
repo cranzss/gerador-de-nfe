@@ -19,27 +19,34 @@ namespace geradordenf
         {
 
         }
-        static string SerieNF(Random rnd, int minLength)
-        {
-            const string chars = "0123456789";
-            char[] result = new char[minLength];
 
-            // Gere caracteres aleatórios até alcançar o tamanho mínimo especificado
-            for (int i = 0; i < minLength; i++)
-            {
-                result[i] = chars[rnd.Next(chars.Length)];
-            }
-
-            return new string(result);
-        }
-        static int NumeroNF()
+        static string SerieNF()
         {
             Random rand = new Random();
 
-            // Gerar um número aleatório com 9 dígitos
-            int numeroAleatorio = rand.Next(100000000, 1000000000);
+            // Gera um número entre 1 e 9 dígitos
+            int quantidadeDigitos = rand.Next(1, 4); // 1 a 9
+            int menor = (int)Math.Pow(10, quantidadeDigitos - 1);
+            int maior = (int)Math.Pow(10, quantidadeDigitos) - 1;
 
-            return numeroAleatorio;
+            int numeroAleatorio = rand.Next(menor, maior + 1);
+            string serie = numeroAleatorio.ToString().PadLeft(3, '0');
+
+            return serie;
+        }
+        static string NumeroNF()
+        {
+            Random rand = new Random();
+
+            // Gera um número entre 1 e 9 dígitos
+            int quantidadeDigitos = rand.Next(4, 8); // 1 a 9
+            int menor = (int)Math.Pow(10, quantidadeDigitos - 1);
+            int maior = (int)Math.Pow(10, quantidadeDigitos) - 1;
+
+            int numeroAleatorio = rand.Next(menor, maior + 1);
+            string numerocomzero = numeroAleatorio.ToString().PadLeft(9, '0');
+
+            return numerocomzero;
         }
 
         static string CodNF(Random rando, int minLength)
@@ -151,7 +158,7 @@ namespace geradordenf
         }
         private void textBox2_TextChanged_1(object sender, EventArgs e)
         {
-            textBox2.MaxLength = 14;
+            //textBox2.MaxLength = 14;
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -165,12 +172,11 @@ namespace geradordenf
             }
 
             string cnpj = textBox2.Text;
+            bool caracterepescial = cnpj.Contains(".") || cnpj.Contains("/") || cnpj.Contains("-");
 
-
-            if (cnpj.Length == 0)
+            if (caracterepescial == true)
             {
-                MessageBox.Show("Por favor insira o documento do emissor");
-                return;
+                cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
             }
             else if (cnpj.Length != 14)
             {
@@ -178,27 +184,30 @@ namespace geradordenf
                 return;
             }
 
+            if (cnpj.Length == 0)
+            {
+                MessageBox.Show("Por favor insira o documento do emissor/fornecedor");
+                return;
+            }
+            
             string uf = comboBox1.SelectedItem.ToString();
             string ufcod = CodUF(uf);
 
-            //modelo da nota (55 para NF-e)
-            int mod = 55;
-            string mode = mod.ToString();
 
             //série da nf
-            Random rnd = new Random(DateTime.Now.Millisecond);
-            string ser = SerieNF(rnd, 3);
+            string ser = SerieNF();
 
             //número da nf
-            //Random rand = new Random(DateTime.Now.Millisecond);
-            string num = NumeroNF().ToString();
+            string num = NumeroNF();
 
             //código numérico da nf
             Random rando = new Random(DateTime.Now.Millisecond);
             string cod = CodNF(rando, 8);
 
+            cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
+
             //chave nf com 43 digitos
-            string chave = ufcod + Data + cnpj + mode + ser + num + "1" + cod;
+            string chave = ufcod + Data + cnpj + "55" + ser + num + "1" + cod;
 
             // cálculo do dígito verificador da NF
             int peso = 2;
@@ -224,8 +233,8 @@ namespace geradordenf
             string chavenfe = chave + digit;
 
             textBox1.Text = chavenfe;
-            textBox3.Text = num;
-            textBox4.Text = ser;
+            textBox3.Text = num.TrimStart('0');
+            textBox4.Text = ser.TrimStart('0');
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
