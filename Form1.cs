@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace geradordenf
@@ -20,9 +21,10 @@ namespace geradordenf
 
         }
 
+        static Random rand = new Random();
+
         static string SerieNF()
         {
-            Random rand = new Random();
 
             // Gera um número entre 1 e 9 dígitos
             int quantidadeDigitos = rand.Next(1, 4); // 1 a 9
@@ -36,7 +38,7 @@ namespace geradordenf
         }
         static string NumeroNF()
         {
-            Random rand = new Random();
+            
 
             // Gera um número entre 1 e 9 dígitos
             int quantidadeDigitos = rand.Next(4, 8); // 1 a 9
@@ -158,7 +160,7 @@ namespace geradordenf
         }
         private void textBox2_TextChanged_1(object sender, EventArgs e)
         {
-            //textBox2.MaxLength = 14;
+            textBox2.MaxLength = 18;
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -172,13 +174,11 @@ namespace geradordenf
             }
 
             string cnpj = textBox2.Text;
-            bool caracterepescial = cnpj.Contains(".") || cnpj.Contains("/") || cnpj.Contains("-");
+            //bool caracterepescial = cnpj.Contains(".") || cnpj.Contains("/") || cnpj.Contains("-");
 
-            if (caracterepescial == true)
-            {
-                cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
-            }
-            else if (cnpj.Length != 14)
+            cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
+
+            if (cnpj.Length != 14)
             {
                 MessageBox.Show("Por favor insira um documento válido");
                 return;
@@ -255,6 +255,15 @@ namespace geradordenf
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            TextBox textBox = sender as TextBox;
+            string numeros = new string(textBox.Text.Where(char.IsDigit).ToArray());
+
+            // Se já tiver 14 dígitos e a tecla pressionada não for de controle (como backspace), bloqueia
+            if (numeros.Length >= 14 && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
